@@ -8,9 +8,9 @@
     var_env: "PROD"
     #var_env: "DEV"
     #var_env: "QA" 
-    templatelink: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeployqna.json?st=2018-10-23T15%3A16%3A46Z&se=2018-10-24T15%3A16%3A46Z&sp=rwdl&sv=2018-03-28&sr=b&sig=gyhIMAebz8MP7sJAgzGpugx9%2BqwNynNxNJKJPt8Z82k%3D'
-    templateLink1: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeploybot.json?st=2018-10-23T15%3A17%3A48Z&se=2018-10-24T15%3A17%3A48Z&sp=rwdl&sv=2018-03-28&sr=b&sig=M5NJCehRGEyEdx4BXSxq8WQl11yc5DOZlkra10dMs9A%3D'
-    templateLink2: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeploysql.json?st=2018-10-23T15%3A18%3A28Z&se=2018-10-24T15%3A18%3A28Z&sp=rwdl&sv=2018-03-28&sr=b&sig=jz3Upp7QXO4YImwBFhbFw3UrolFn%2BL02nde%2BE5BZG1w%3D'
+    templatelink: 'https://raw.githubusercontent.com/nitinpokharna/botdeployroles/master/azuredeployqna.json'
+    templateLink1: 'https://raw.githubusercontent.com/nitinpokharna/botdeployroles/master/azuredeploybot.json'
+    templateLink2: 'https://raw.githubusercontent.com/nitinpokharna/botdeployroles/master/azuredeploysql.json'
     var_zipUrl: "https://connectorprod.blob.core.windows.net/bot-packages/csharp-abs-webapp_qnabot_precompiled.zip"
     Templatelink3: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeployvault.json?st=2018-10-26T06%3A32%3A29Z&se=2018-10-31T06%3A32%3A00Z&sp=rl&sv=2018-03-28&sr=b&sig=frZNg5PSjnWw7Wb3AKWlz1MwvncROSZmdiD4%2BjQt1NU%3D'
     #var_botId: "EYchatbot"
@@ -48,7 +48,6 @@
     var_licenseType: ""
     var_enableATP: false
     var_allowAzureIps: true
-    var_azure_rm_subid: "7baa9f2b-0857-4063-a952-a2ff81a3fc80"
     Var_NamesDictionary:
         Roles:
           GUID: "random-{{ ansible_date_time.iso8601_micro }}"
@@ -81,22 +80,10 @@
       var_serverName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlServer }}001"
       var_databaseName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ var_NamesDictionary.Roles.SqlDB }}001"
 
-  - name: AZ Login to Azure
-    shell: >
-           az login --service-principal
-           -u "{{ AZURE_RM_CLIENTID | mandatory }}"
-           -p "{{ AZURE_RM_SECRET | mandatory }}"
-           --tenant "{{ AZURE_RM_TENANTID | mandatory }}"
-
-
-  - name: Creating QNA maker
+   - name: Creating QNA maker
     azure_rm_deployment:
         state: present
-        resource_group_name: 'nitindem'
-        client_id: "{{ AZURE_RM_CLIENTID }}"
-        secret: "{{ AZURE_RM_SECRET }}"
-        tenant: "{{ AZURE_RM_TENANTID }}"
-        subscription_id: "{{ var_azure_rm_subid }}"
+        resource_group_name: 'var_resource_group_name'
         parameters:
           name: 
               value: '{{ var_name }}'
@@ -121,11 +108,7 @@
   - name: Creating webapp bot
     azure_rm_deployment:
         state: present
-        resource_group_name: 'nitindem'
-        client_id: "{{ AZURE_RM_CLIENTID }}"
-        secret: "{{ AZURE_RM_SECRET }}"
-        tenant: "{{ AZURE_RM_TENANTID }}"
-        subscription_id: "{{ var_azure_rm_subid }}"
+        resource_group_name: 'var_resource_group_name'
         parameters:
           zipUrl: 
               value: '{{ var_zipUrl }}'
@@ -166,11 +149,7 @@
   - name: Creating SQL Server and Database
     azure_rm_deployment:
         state: present
-        resource_group_name: 'nitindem'
-        client_id: "{{ AZURE_RM_CLIENTID }}"
-        secret: "{{ AZURE_RM_SECRET }}"
-        tenant: "{{ AZURE_RM_TENANTID }}"
-        subscription_id: "{{ var_azure_rm_subid }}"
+        resource_group_name: 'var_resource_group_name'
         parameters:
           administratorLogin:
               value: '{{ var_administratorLogin }}' 
