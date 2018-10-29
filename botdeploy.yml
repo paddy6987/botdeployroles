@@ -14,7 +14,7 @@
     var_zipUrl: "https://connectorprod.blob.core.windows.net/bot-packages/csharp-abs-webapp_qnabot_precompiled.zip"
     Templatelink3: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeployvault.json?st=2018-10-26T06%3A32%3A29Z&se=2018-10-31T06%3A32%3A00Z&sp=rl&sv=2018-03-28&sr=b&sig=frZNg5PSjnWw7Wb3AKWlz1MwvncROSZmdiD4%2BjQt1NU%3D'
     #var_botId: "EYchatbot"
-    var_location: "westus"
+    var_location: "westeurope"
     var_kind: "sdk"
     var_sku: "F0"
     #var_siteName: "EYchatbot"
@@ -61,7 +61,7 @@
           SqlDB: "DBC"
           Cache: "CHC"
         Locations:
-          westus: "WE"
+          westeurope: "WER"
           eastus: "EUS"   
   tasks:
 
@@ -82,7 +82,7 @@
   - name: Creating QNA maker
     azure_rm_deployment:
         state: present
-        resource_group_name: 'var_resource_group_name'
+        resource_group_name: '{{ var_resource_group_name }}'
         parameters:
           name: 
               value: '{{ var_name }}'
@@ -107,7 +107,7 @@
   - name: Creating webapp bot
     azure_rm_deployment:
         state: present
-        resource_group_name: 'var_resource_group_name'
+        resource_group_name: '{{ var_resource_group_name }}'
         parameters:
           zipUrl: 
               value: '{{ var_zipUrl }}'
@@ -148,7 +148,7 @@
   - name: Creating SQL Server and Database
     azure_rm_deployment:
         state: present
-        resource_group_name: 'var_resource_group_name'
+        resource_group_name: '{{ var_resource_group_name }}'
         parameters:
           administratorLogin:
               value: '{{ var_administratorLogin }}' 
