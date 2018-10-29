@@ -1,0 +1,203 @@
+---
+- name: CREATE ARM Deployment PLAYBOOK
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    # Variables 'resgrp' and 'location' need to be provided at command line with arg --extra-vars
+    var_env: "PROD"
+    #var_env: "DEV"
+    #var_env: "QA" 
+    templatelink: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeployqna.json?st=2018-10-23T15%3A16%3A46Z&se=2018-10-24T15%3A16%3A46Z&sp=rwdl&sv=2018-03-28&sr=b&sig=gyhIMAebz8MP7sJAgzGpugx9%2BqwNynNxNJKJPt8Z82k%3D'
+    templateLink1: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeploybot.json?st=2018-10-23T15%3A17%3A48Z&se=2018-10-24T15%3A17%3A48Z&sp=rwdl&sv=2018-03-28&sr=b&sig=M5NJCehRGEyEdx4BXSxq8WQl11yc5DOZlkra10dMs9A%3D'
+    templateLink2: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeploysql.json?st=2018-10-23T15%3A18%3A28Z&se=2018-10-24T15%3A18%3A28Z&sp=rwdl&sv=2018-03-28&sr=b&sig=jz3Upp7QXO4YImwBFhbFw3UrolFn%2BL02nde%2BE5BZG1w%3D'
+    var_zipUrl: "https://connectorprod.blob.core.windows.net/bot-packages/csharp-abs-webapp_qnabot_precompiled.zip"
+    Templatelink3: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeployvault.json?st=2018-10-26T06%3A32%3A29Z&se=2018-10-31T06%3A32%3A00Z&sp=rl&sv=2018-03-28&sr=b&sig=frZNg5PSjnWw7Wb3AKWlz1MwvncROSZmdiD4%2BjQt1NU%3D'
+    #var_botId: "EYchatbot"
+    var_location: "westeurope"
+    var_kind: "sdk"
+    var_sku: "F0"
+    #var_siteName: "EYchatbot"
+    #var_appId: "cd3b2269-5e08-4afe-bdbc-ea83703c7b3b"
+    var_appSecret: "vC/FoAE@9rqCvH|l"
+    var_createNewStorage: true
+    #var_storageAccountName: "EYchatbotad0f"
+    var_storageAccountResourceId: ""
+    var_useAppInsights: true
+    var_appInsightsLocation: "East US"
+    var_createServerFarm: true
+    var_serverFarmId: "/subscriptions/var_azure_rm_subid/resourceGroups/var_resource_group_name/providers/Microsoft.Web/serverfarms/var_siteName"
+    var_serverFarmLocation: "West US"
+    var_azureWebJobsBotFrameworkDirectLineSecret: ""
+    #var_name: "EYqna"
+    #var_appName: "EYqnaq"
+    var_location2: "East US"
+    var_location3: "Central US"
+    var_location4: "West US"
+    var_sku2: "free"
+    var_searchHostingMode: "default"
+    var_administratorLogin: "eyadmin"
+    #var_collation: "SQL_Latin1_General_CP1_CI_AS"
+    #var_databaseName: "Ey_db"
+    var_tier: "standard"
+    var_skuName: "S0"
+    var_maxSizeBytes: 268435456000
+    var_sampleName: ""
+    #var_serverName: "eydb"
+    var_zoneRedundant: false
+    var_licenseType: ""
+    var_enableATP: false
+    var_allowAzureIps: true
+    var_azure_rm_subid: "7baa9f2b-0857-4063-a952-a2ff81a3fc80"
+    Var_NamesDictionary:
+        Roles:
+          GUID: "random-{{ ansible_date_time.iso8601_micro }}"
+          Bot: "CHATBOT"
+          StorageAccount: "BOTSTC"
+          ResourceGroup: "RSGC"
+          SqlServer: "SQLC"
+          WebApp: "WAC"
+          QNAmaker: "QNAC"
+          QNAApp: "QNAAC"
+          Collation: "DBCC"
+          SqlDB: "DBC"
+          Cache: "CHC"
+        Locations:
+          westeurope: "WEURO"
+          eastus: "EUS"   
+  tasks:
+
+
+  - name: Generate Names
+    set_fact: 
+      var_resource_group_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.ResourceGroup }}001"
+      var_botId: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.Bot }}001"
+      var_siteName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.WebApp }}001"
+      var_appId: "{{ Var_NamesDictionary.GUID | to_uuid }}"
+      var_storageAccountName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.StorageAccount }}001"
+      var_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.QNAmaker }}001"
+      var_appName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.QNAApp }}001"
+      var_collation: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.Collation }}001"
+      var_serverName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlServer }}001"
+      var_databaseName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ var_NamesDictionary.Roles.SqlDB }}001"
+
+  - name: AZ Login to Azure
+    shell: >
+           az login --service-principal
+           -u "{{ AZURE_RM_CLIENTID | mandatory }}"
+           -p "{{ AZURE_RM_SECRET | mandatory }}"
+           --tenant "{{ AZURE_RM_TENANTID | mandatory }}"
+
+
+  - name: Creating QNA maker
+    azure_rm_deployment:
+        state: present
+        resource_group_name: 'nitindem'
+        client_id: "{{ AZURE_RM_CLIENTID }}"
+        secret: "{{ AZURE_RM_SECRET }}"
+        tenant: "{{ AZURE_RM_TENANTID }}"
+        subscription_id: "{{ var_azure_rm_subid }}"
+        parameters:
+          name: 
+              value: '{{ var_name }}'
+          appName:
+              value: '{{ var_appName }}'
+          location:
+              value: '{{ var_location }}'
+          location2: 
+              value: '{{ var_location2 }}'
+          location3: 
+              value: '{{ var_location3 }}'
+          location4: 
+              value: '{{ var_location4 }}'
+          sku: 
+              value: '{{ var_sku }}'
+          sku2: 
+              value: '{{ var_sku2 }}'
+          searchHostingMode: 
+              value: '{{ var_searchHostingMode }}'
+        template_link: '{{ templatelink }}'
+        
+  - name: Creating webapp bot
+    azure_rm_deployment:
+        state: present
+        resource_group_name: 'nitindem'
+        client_id: "{{ AZURE_RM_CLIENTID }}"
+        secret: "{{ AZURE_RM_SECRET }}"
+        tenant: "{{ AZURE_RM_TENANTID }}"
+        subscription_id: "{{ var_azure_rm_subid }}"
+        parameters:
+          zipUrl: 
+              value: '{{ var_zipUrl }}'
+          botId: 
+              value: '{{ var_botId }}'
+          location: 
+              value: '{{ var_location }}'
+          kind: 
+              value: '{{ var_kind }}'
+          sku: 
+              value: '{{ var_sku }}'
+          siteName: 
+              value: '{{ var_siteName }}'
+          appId: 
+              value: '{{ var_appId }}'
+          appSecret: 
+              value: '{{var_appSecret }}'
+          createNewStorage: 
+              value: '{{ var_createNewStorage }}'
+          storageAccountName: 
+              value: '{{ var_storageAccountName }}'
+          storageAccountResourceId: 
+              value: '{{ var_storageAccountResourceId }}'
+          useAppInsights: 
+              value: '{{ var_useAppInsights }}'
+          appInsightsLocation:
+              value: '{{ var_appInsightsLocation }}'
+          createServerFarm: 
+              value: '{{ var_createServerFarm }}'
+          serverFarmId: 
+              value: '{{ var_serverFarmId }}'
+          serverFarmLocation: 
+              value: '{{ var_serverFarmLocation }}'
+          azureWebJobsBotFrameworkDirectLineSecret: 
+              value: '{{ var_azureWebJobsBotFrameworkDirectLineSecret }}'
+        template_link: '{{ templateLink1 }}'
+        
+  - name: Creating SQL Server and Database
+    azure_rm_deployment:
+        state: present
+        resource_group_name: 'nitindem'
+        client_id: "{{ AZURE_RM_CLIENTID }}"
+        secret: "{{ AZURE_RM_SECRET }}"
+        tenant: "{{ AZURE_RM_TENANTID }}"
+        subscription_id: "{{ var_azure_rm_subid }}"
+        parameters:
+          administratorLogin:
+              value: '{{ var_administratorLogin }}' 
+          administratorLoginPassword:
+              value:  "{{ sqlServerAdminPassword.stdout_lines[0] }}"
+          collation:
+              value: '{{ var_collation }}'
+          databaseName:
+              value: '{{ var_databaseName }}'
+          tier:
+              value: '{{ var_tier }}'
+          skuName:
+              value: '{{ var_skuName }}'
+          location:
+              value: '{{ var_location }}'
+          maxSizeBytes:
+              value: '{{ var_maxSizeBytes }}'
+          sampleName:
+              value: '{{ var_sampleName }}'
+          serverName:
+              value: '{{ var_serverName }}'
+          zoneRedundant:
+              value: '{{ var_zoneRedundant }}'
+          licenseType:
+              value: '{{ var_licenseType }}'
+          enableATP:
+              value: '{{ var_enableATP }}'
+          allowAzureIps:
+              value: '{{ var_allowAzureIps }}'
+        template_link: '{{ templateLink2 }}'
