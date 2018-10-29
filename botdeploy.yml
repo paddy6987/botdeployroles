@@ -80,7 +80,7 @@
       var_serverName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlServer }}001"
       var_databaseName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ var_NamesDictionary.Roles.SqlDB }}001"
 
-   - name: Creating QNA maker
+  - name: Creating QNA maker
     azure_rm_deployment:
         state: present
         resource_group_name: 'var_resource_group_name'
