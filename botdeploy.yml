@@ -2,7 +2,7 @@
 - name: CREATE ARM Deployment PLAYBOOK
   hosts: localhost
   connection: local
-  gather_facts: False
+  gather_facts: True
   vars:
     # Variables 'resgrp' and 'location' need to be provided at command line with arg --extra-vars
     var_env: "PROD"
