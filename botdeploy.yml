@@ -14,7 +14,7 @@
     var_zipUrl: "https://connectorprod.blob.core.windows.net/bot-packages/csharp-abs-webapp_qnabot_precompiled.zip"
     Templatelink3: 'https://nitinst.blob.core.windows.net/nitinblob/azuredeployvault.json?st=2018-10-26T06%3A32%3A29Z&se=2018-10-31T06%3A32%3A00Z&sp=rl&sv=2018-03-28&sr=b&sig=frZNg5PSjnWw7Wb3AKWlz1MwvncROSZmdiD4%2BjQt1NU%3D'
     #var_botId: "EYchatbot"
-    var_location: "westeurope"
+    var_location: "westus"
     var_kind: "sdk"
     var_sku: "F0"
     #var_siteName: "EYchatbot"
@@ -61,7 +61,7 @@
           SqlDB: "DBC"
           Cache: "CHC"
         Locations:
-          westeurope: "WER"
+          westus: "WEUS"
           eastus: "EUS"   
   tasks:
 
