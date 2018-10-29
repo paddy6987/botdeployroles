@@ -26,7 +26,7 @@
     var_useAppInsights: true
     var_appInsightsLocation: "East US"
     var_createServerFarm: true
-    var_serverFarmId: "/subscriptions/var_azure_rm_subid /resourceGroups/var_resource_group_name/providers/Microsoft.Web/serverfarms/newplan"
+    var_serverFarmId: "/subscriptions/803fe6a8-c026-48c3-86f3-5d8036e3461c/resourceGroups/WEUSPRODRSGC001/providers/Microsoft.Web/serverfarms/newappplan"
     var_serverFarmLocation: "West US"
     var_azureWebJobsBotFrameworkDirectLineSecret: ""
     #var_name: "EYqna"
