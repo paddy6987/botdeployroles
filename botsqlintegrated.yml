@@ -11,7 +11,7 @@
     templateLink1: 'https://github.com/paddy6987/botdeployroles/blob/master/azuredeploybot.json'
     var_zipUrl: "https://connectorprod.blob.core.windows.net/bot-packages/csharp-abs-webapp_qnabot_precompiled.zip"
     #var_botId: "EYchatbot"
-    var_location: "East US"
+    var_location: "central india"
     var_kind: "sdk"
     var_sku: "F0"
     #var_siteName: "EYchatbot"
