@@ -370,7 +370,7 @@
 					"type": "config",
 					"name": "connectionstrings",
 					"dependsOn": [
-						"[parameters('webSiteName')]"
+						"[parameters('siteName')]"
 					],
 					"properties": {
 						"DefaultConnection": {
