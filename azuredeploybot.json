@@ -9,9 +9,6 @@
         "botId": {
             "type": "string"
         },
-        "location": {
-            "type": "string"
-        },
         "sku": {
             "type": "string"
         },
