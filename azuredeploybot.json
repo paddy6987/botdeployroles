@@ -212,19 +212,6 @@
                         "zoneRedundant": "[parameters('zoneRedundant')]",
                         "licenseType": "[parameters('licenseType')]"
             }
-          },
-          {
-            "type": "firewallrules",
-            "apiVersion": "2014-04-01",
-            "dependsOn": [
-              "[parameters('serverName')]"
-            ],
-            "location": "[parameters('location')]",
-            "name": "AllowAllWindowsAzureIps",
-            "properties": {
-              "endIpAddress": "0.0.0.0",
-              "startIpAddress": "0.0.0.0"
-            }
           }
         ]
       },
