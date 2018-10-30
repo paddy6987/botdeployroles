@@ -84,7 +84,7 @@
         "luisApiLocation": {
             "type": "string",
             "defaultValue": "Global"
-        }
+        },
         "administratorLogin": {
             "type": "string"
         },
