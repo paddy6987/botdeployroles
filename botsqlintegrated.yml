@@ -36,7 +36,7 @@
     var_searchHostingMode: "default"
     var_administratorLogin: "eyadmin"
     var_administratorLoginPassword: "Password12345!"
-    #var_collation: "SQL_Latin1_General_CP1_CI_AS"
+    var_collation: "SQL_Latin1_General_CP1_CI_AS"
     var_databaseName: "Eydbsdfsf"
     var_tier: "standard"
     var_skuName: "S0"
@@ -88,6 +88,8 @@
               value:  "{{ var_administratorLoginPassword  }}"
           databaseName:
               value: '{{ var_databaseName }}'
+          collation:
+              value: '{{ var_collation }}'
           tier:
               value: '{{ var_tier }}'
           skuName:
