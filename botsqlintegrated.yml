@@ -61,10 +61,8 @@
         Locations:
           westus: "WEUS"
           eastus: "EUS"   
-tasks:
-
-
-- name: Generate Names
+ tasks:
+ - name: Generate Names
     set_fact: 
       var_resource_group_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.ResourceGroup }}001"
       var_botId: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.Bot }}001"
@@ -77,7 +75,7 @@ tasks:
       #var_serverName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlServer }}001"
       #var_databaseName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlDB }}001"
      
-- name: Creating webapp bot
+ - name: Creating webapp bot
     azure_rm_deployment:
         state: present
         resource_group_name: '{{ var_resource_group_name }}'
