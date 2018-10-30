@@ -36,7 +36,7 @@
     var_administratorLogin: "eyadmin"
     var_administratorLoginPassword: "Password12345!"
     #var_collation: "SQL_Latin1_General_CP1_CI_AS"
-    #var_databaseName: "Ey_db"
+    var_databaseName: "Eydbsdfsf"
     var_tier: "standard"
     var_skuName: "S0"
     var_maxSizeBytes: 268435456000
@@ -75,7 +75,7 @@
       var_appName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.QNAApp }}001"
       var_collation: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.Collation }}001"
       #var_serverName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlServer }}001"
-      var_databaseName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlDB }}001"
+      #var_databaseName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlDB }}001"
      
   - name: Creating webapp bot
     azure_rm_deployment:
