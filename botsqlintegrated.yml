@@ -87,8 +87,8 @@
               value: '{{ var_administratorLogin }}' 
           administratorLoginPassword:
               value:  "{{ var_administratorLoginPassword  }}"
-          collation:
-              value: '{{ var_collation }}'
+        #  collation:
+        #      value: '{{ var_collation }}'
           databaseName:
               value: '{{ var_databaseName }}'
           tier:
