@@ -193,7 +193,7 @@
         "resources": [
           {
             "name": "[parameters('databaseName')]",
-            "type": "databases",
+            "type": "Microsoft.Sql/servers/databases",
             "location": "[parameters('location')]",
             "tags": {
               "displayName": "Database"
