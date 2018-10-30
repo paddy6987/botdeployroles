@@ -11,7 +11,7 @@
     templateLink1: 'https://raw.githubusercontent.com/nitinpokharna/botdeployroles/master/azuredeploybot.json'
     var_zipUrl: "https://connectorprod.blob.core.windows.net/bot-packages/csharp-abs-webapp_qnabot_precompiled.zip"
     #var_botId: "EYchatbot"
-    var_location: "eastus"
+    var_location: "westus"
     var_kind: "sdk"
     var_sku: "F0"
     #var_siteName: "EYchatbot"
@@ -35,7 +35,7 @@
     var_searchHostingMode: "default"
     var_administratorLogin: "eyadmin"
     var_administratorLoginPassword: "Password12345!"
-    #var_collation: "SQL_Latin1_General_CP1_CI_AS"
+    var_collation: "SQL_Latin1_General_CP1_CI_AS"
     var_databaseName: "eydbssf"
     var_tier: "standard"
     var_skuName: "S0"
