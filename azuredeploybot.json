@@ -379,6 +379,7 @@
 						}
 					}
 				},
+		    {
                     "name": "MSDeploy",
                     "type": "Extensions",
                     "apiVersion": "2015-02-01",
