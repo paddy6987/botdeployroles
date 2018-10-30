@@ -8,7 +8,7 @@
     var_env: "PROD"
     #var_env: "DEV"
     #var_env: "QA" 
-    templateLink1: "https://github.com/nitinpokharna/botdeployroles/blob/master/azuredeploybot.json"
+    templateLink1: "https://github.com/paddy6987/botdeployroles/blob/master/azuredeploybot.json"
     var_zipUrl: "https://connectorprod.blob.core.windows.net/bot-packages/csharp-abs-webapp_qnabot_precompiled.zip"
     #var_botId: "EYchatbot"
     var_location: "westus"
