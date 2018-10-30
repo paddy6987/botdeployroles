@@ -88,9 +88,6 @@
         "administratorLoginPassword": {
             "type": "securestring"
         },
-        "collation": {
-            "type": "string"
-        },
         "databaseName": {
             "type": "string"
         },
