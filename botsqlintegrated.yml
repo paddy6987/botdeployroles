@@ -8,7 +8,7 @@
     var_env: "PROD"
     #var_env: "DEV"
     #var_env: "QA" 
-    templateLink1: 'https://github.com/paddy6987/botdeployroles/blob/master/azuredeploybot.json'
+    templateLink1: 'https://raw.githubusercontent.com/nitinpokharna/botdeployroles/master/azuredeploybot.json'
     var_zipUrl: "https://connectorprod.blob.core.windows.net/bot-packages/csharp-abs-webapp_qnabot_precompiled.zip"
     #var_botId: "EYchatbot"
     var_location: "westus"
@@ -33,16 +33,15 @@
     var_location4: "West US"
     var_sku2: "free"
     var_searchHostingMode: "default"
-    var_administratorLogin: "Eyadmin"
+    var_administratorLogin: "eyadmin"
     var_administratorLoginPassword: "Password12345!"
     #var_collation: "SQL_Latin1_General_CP1_CI_AS"
     var_databaseName: "Eydbsdfsf"
     var_tier: "standard"
     var_skuName: "S0"
-    var_resource_group_name: "BOTRG"
     var_maxSizeBytes: 268435456000
     var_sampleName: ""
-    var_serverName: "eydbe"
+    var_serverName: "eydbedf"
     var_zoneRedundant: false
     var_licenseType: ""
     var_enableATP: false
@@ -56,7 +55,7 @@
           WebApp: "WAC"
           QNAmaker: "QNAC"
           QNAApp: "QNAAC"
-#Collation: "DBCC"
+          Collation: "DBCC"
           SqlDB: "DBC"
           Cache: "CHC"
         Locations:
@@ -67,7 +66,7 @@
 
   - name: Generate Names
     set_fact: 
-      #var_resource_group_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.ResourceGroup }}001"
+      var_resource_group_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.ResourceGroup }}001"
       var_botId: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.Bot }}001"
       var_siteName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.WebApp }}001"
       var_appId: "{{ ansible_date_time.iso8601_micro | to_uuid }}"
@@ -87,8 +86,6 @@
               value: '{{ var_administratorLogin }}' 
           administratorLoginPassword:
               value:  "{{ var_administratorLoginPassword  }}"
-        #  collation:
-        #      value: '{{ var_collation }}'
           databaseName:
               value: '{{ var_databaseName }}'
           tier:
@@ -146,4 +143,3 @@
           azureWebJobsBotFrameworkDirectLineSecret: 
               value: '{{ var_azureWebJobsBotFrameworkDirectLineSecret }}'
         template_link: '{{ templateLink1 }}'
-        
