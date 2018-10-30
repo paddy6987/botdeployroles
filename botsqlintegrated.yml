@@ -32,7 +32,7 @@
     var_location3: "Central US"
     var_location4: "West US"
     var_sku2: "free"
-    var_resource_group_name: "BOTRG"
+    #var_resource_group_name: "BOTRG"
     var_searchHostingMode: "default"
     var_administratorLogin: "eyadmin"
     var_administratorLoginPassword: "Password12345!"
@@ -66,7 +66,7 @@
 
   - name: Generate Names
     set_fact: 
-      #var_resource_group_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.ResourceGroup }}001"
+      var_resource_group_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.ResourceGroup }}001"
       var_botId: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.Bot }}001"
       var_siteName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.WebApp }}001"
       var_appId: "{{ ansible_date_time.iso8601_micro | to_uuid }}"
