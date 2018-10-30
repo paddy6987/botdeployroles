@@ -8,7 +8,7 @@
     var_env: "PROD"
     #var_env: "DEV"
     #var_env: "QA" 
-    templateLink1: 'https://github.com/paddy6987/botdeployroles/blob/master/azuredeploybot.json'
+    templateLink1: 'https://raw.githubusercontent.com/nitinpokharna/botdeployroles/master/azuredeploybot.json'
     var_zipUrl: "https://connectorprod.blob.core.windows.net/bot-packages/csharp-abs-webapp_qnabot_precompiled.zip"
     #var_botId: "EYchatbot"
     var_location: "westus"
@@ -32,12 +32,11 @@
     var_location3: "Central US"
     var_location4: "West US"
     var_sku2: "free"
-    #var_resource_group_name: "BOTRG"
     var_searchHostingMode: "default"
     var_administratorLogin: "eyadmin"
     var_administratorLoginPassword: "Password12345!"
-    var_collation: "SQL_Latin1_General_CP1_CI_AS"
-    var_databaseName: "Eydbsdfsf"
+    #var_collation: "SQL_Latin1_General_CP1_CI_AS"
+    var_databaseName: "eydbssf"
     var_tier: "standard"
     var_skuName: "S0"
     var_maxSizeBytes: 268435456000
@@ -56,13 +55,16 @@
           WebApp: "WAC"
           QNAmaker: "QNAC"
           QNAApp: "QNAAC"
+          Collation: "DBCC"
           SqlDB: "DBC"
           Cache: "CHC"
         Locations:
           westus: "WEUS"
           eastus: "EUS"   
- tasks:
- - name: Generate Names
+  tasks:
+
+
+  - name: Generate Names
     set_fact: 
       var_resource_group_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.ResourceGroup }}001"
       var_botId: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.Bot }}001"
@@ -75,7 +77,7 @@
       #var_serverName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlServer }}001"
       #var_databaseName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.SqlDB }}001"
      
- - name: Creating webapp bot
+  - name: Creating webapp bot
     azure_rm_deployment:
         state: present
         resource_group_name: '{{ var_resource_group_name }}'
@@ -83,11 +85,9 @@
           administratorLogin:
               value: '{{ var_administratorLogin }}' 
           administratorLoginPassword:
-              value:  '{{ var_administratorLoginPassword  }}'
+              value:  "{{ var_administratorLoginPassword }}"
           databaseName:
               value: '{{ var_databaseName }}'
-          collation:
-              value: '{{ var_collation }}'
           tier:
               value: '{{ var_tier }}'
           skuName:
