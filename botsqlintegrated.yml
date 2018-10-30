@@ -33,7 +33,7 @@
     var_location4: "West US"
     var_sku2: "free"
     var_searchHostingMode: "default"
-    var_administratorLogin: "eyadmin"
+    var_administratorLogin: "Eyadmin"
     var_administratorLoginPassword: "Password12345!"
     #var_collation: "SQL_Latin1_General_CP1_CI_AS"
     var_databaseName: "Eydbsdfsf"
