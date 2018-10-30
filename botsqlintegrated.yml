@@ -56,7 +56,7 @@
           WebApp: "WAC"
           QNAmaker: "QNAC"
           QNAApp: "QNAAC"
-          Collation: "DBCC"
+#Collation: "DBCC"
           SqlDB: "DBC"
           Cache: "CHC"
         Locations:
