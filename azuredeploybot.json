@@ -177,40 +177,40 @@
         "luisApiResId": "[resourceId('Microsoft.CognitiveServices/accounts/', variables('luisApiName'))]"
     },
     "resources": [
-              {
-        "name": "[parameters('serverName')]",
-        "type": "Microsoft.Sql/servers",
-        "location": "[parameters('location')]",
-        "tags": {
-          "displayName": "SqlServer"
-        },
-        "apiVersion": "2014-04-01",
-        "properties": {
-          "administratorLogin": "[parameters('administratorLogin')]",
-          "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
-          "version": "12.0"
-        }
-    },
-    {
-        "apiVersion": "2017-10-01-preview",
-        "type": "Microsoft.Sql/servers/databases",
-        "sku": {
-          "name": "S0",
-          "tier": "Standard"
-        },
-        "kind": "v12.0,user",
-        "location": "[parameters('location')]",
-        "name": "[parameter('databaseName')]",
-        "dependsOn": [
-              "[parameters('serverName')]"
-            ],
-            "properties": {
-			"collation": "[parameters('collation')]",
-                        "maxSizeBytes": "[parameters('maxSizeBytes')]",
-                        "sampleName": "[parameters('sampleName')]",
-                        "zoneRedundant": "[parameters('zoneRedundant')]",
-                        "licenseType": "[parameters('licenseType')]"
+        {
+          "name": "[parameters('serverName')]",
+          "type": "Microsoft.Sql/servers",
+          "location": "[parameters('location')]",
+          "tags": {
+            "displayName": "SqlServer"
+          },
+          "apiVersion": "2014-04-01",
+          "properties": {
+            "administratorLogin": "[parameters('administratorLogin')]",
+            "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+            "version": "12.0"
+          },
+          "resources": [
+            {
+              "name": "[parameters('databaseName')]",
+              "type": "databases",
+              "location": "[parameters('location')]",
+              "tags": {
+                "displayName": "Database"
+              },
+              "apiVersion": "2015-01-01",
+              "dependsOn": [
+                "[variables('sqlserverName')]"
+              ],
+              "properties": {
+                "edition": "Basic",
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": "1073741824",
+                "requestedServiceObjectiveName": "Basic"
+              }
             }
-        }
-    ]
+            ]
+        
+    }
+]
 }
