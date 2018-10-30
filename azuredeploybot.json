@@ -201,7 +201,7 @@
             "tags": {
               "displayName": "Database"
             },
-            "apiVersion": "2015-01-01",
+            "apiVersion": "2014-04-01",
             "dependsOn": [
               "[parameters('serverName')]"
             ],
