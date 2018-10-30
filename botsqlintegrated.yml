@@ -39,6 +39,7 @@
     var_databaseName: "Eydbsdfsf"
     var_tier: "standard"
     var_skuName: "S0"
+    var_resource_group_name: "BOTRG"
     var_maxSizeBytes: 268435456000
     var_sampleName: ""
     var_serverName: "eydbe"
@@ -66,7 +67,7 @@
 
   - name: Generate Names
     set_fact: 
-      var_resource_group_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.ResourceGroup }}001"
+      #var_resource_group_name: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.ResourceGroup }}001"
       var_botId: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.Bot }}001"
       var_siteName: "{{ Var_NamesDictionary.Locations[var_location] }}{{ var_env }}{{ Var_NamesDictionary.Roles.WebApp }}001"
       var_appId: "{{ ansible_date_time.iso8601_micro | to_uuid }}"
