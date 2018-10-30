@@ -36,7 +36,7 @@
     var_administratorLogin: "eyadmin"
     var_administratorLoginPassword: "Password12345!"
     #var_collation: "SQL_Latin1_General_CP1_CI_AS"
-    var_databaseName: "Eydbsdfsf"
+    var_databaseName: "Eydb"
     var_tier: "standard"
     var_skuName: "S0"
     var_maxSizeBytes: 268435456000
