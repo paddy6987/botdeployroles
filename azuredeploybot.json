@@ -9,9 +9,6 @@
         "botId": {
             "type": "string"
         },
-        "location": {
-            "type": "string"
-        },
         "sku": {
             "type": "string"
         },
@@ -192,17 +189,17 @@
           "administratorLogin": "[parameters('administratorLogin')]",
           "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
           "version": "12.0"
+        }
+    },
+        {
+        "name": "[parameters('databaseName')]",
+        "type": "Microsoft.Sql/servers/databases",
+        "location": "[parameters('location')]",
+        "tags": {
+          "displayName": "Database"
         },
-        "resources": [
-          {
-            "name": "[parameters('databaseName')]",
-            "type": "Microsoft.Sql/servers/databases",
-            "location": "[parameters('location')]",
-            "tags": {
-              "displayName": "Database"
-            },
-            "apiVersion": "2014-04-01",
-            "dependsOn": [
+        "apiVersion": "2014-04-01",
+        "dependsOn": [
               "[parameters('serverName')]"
             ],
             "properties": {
@@ -212,10 +209,8 @@
                         "zoneRedundant": "[parameters('zoneRedundant')]",
                         "licenseType": "[parameters('licenseType')]"
             }
-          }
-        ]
-      },
-        {
+        },
+        { 
             "name": "[if(equals('', variables('luisApiName')), 'nosuch', variables('luisApiName'))]",
             "apiVersion": "2017-04-18",
             "condition": "[not(equals(variables('luisApiName'), ''))]",
@@ -250,7 +245,7 @@
         },
         {
             "name": "[variables('insightsName')]",
-            "type": "microsoft.insights/components",
+            "type": "Microsoft.insights/components",
             "kind": "web",
             "apiVersion": "2014-04-01",
             "condition": "[parameters('useAppInsights')]",
@@ -350,9 +345,9 @@
                         ]
                     }
                 }
-            },
-            "resources": [
-                {
+            }
+        },
+            {
                     "apiVersion": "2016-03-01",
 					"type": "config",
 					"name": "connectionstrings",
@@ -363,9 +358,9 @@
 						"DefaultConnection": {
 							"value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', parameters('serverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('databaseName'), ';User Id=', parameters('administratorLogin'), '@', reference(concat('Microsoft.Sql/servers/', parameters('serverName'))).fullyQualifiedDomainName, ';Password=', parameters('administratorLoginPassword'), ';')]",
 							"type": "SQLAzure"
-						}
-					}
-				},
+                        }		
+                    }
+                },       
 		    {
                     "name": "MSDeploy",
                     "type": "Extensions",
@@ -382,8 +377,7 @@
                             "IIS Web Application Name": "[parameters('siteName')]"
                         }
                     }
-                }
-            ]
+            
         },
         {
             "apiVersion": "2016-03-01",
@@ -426,11 +420,12 @@
                             "name": "AzureWebJobsBotFrameworkDirectLineEndpoint",
                             "value": "[variables('currentConfig').azureWebJobsBotFrameworkDirectLineEndpoint]"
                         }
+                    
                     ]
                 }
+            }
             },
-            "resources": [
-                {
+            {
                     "name": "MSDeploy",
                     "type": "Extensions",
                     "apiVersion": "2015-02-01",
@@ -441,9 +436,7 @@
                     "properties": {
                         "packageUri": "[parameters('proactiveZipUrl')]"
                     }
-                }
-            ]
-        },
+             },
         {
             "apiVersion": "2017-12-01",
             "type": "Microsoft.BotService/botServices",
